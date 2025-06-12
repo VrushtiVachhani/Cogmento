@@ -1,0 +1,2733 @@
+{
+	"info": {
+		"_postman_id": "2b906ef6-6890-4cd5-9f33-43a7e96a21e1",
+		"name": "Cogmento",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "42776227-2b906ef6-6890-4cd5-9f33-43a7e96a21e1"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "User Auth",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "6883df28-3bcb-4838-a1f2-c5d92398d364",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(502);",
+									"});",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"// Add a test to check for schema validation in the response",
+									"pm.test(\"Schema is valid\", function () {",
+									"  var schema = {",
+									"    type: \"object\",",
+									"    properties: {",
+									"      response: {",
+									"        type: \"object\",",
+									"        properties: {",
+									"          success: { type: \"boolean\" },",
+									"          version: { type: \"string\" },",
+									"          token: { type: \"string\" },",
+									"          urls: {",
+									"            type: \"object\",",
+									"            properties: {",
+									"              www: { type: \"string\" },",
+									"              api: { type: \"string\" },",
+									"              ui: { type: \"string\" },",
+									"              api_url: { type: \"string\" },",
+									"              onesignal_app_id: { type: \"string\" },",
+									"            },",
+									"          },",
+									"          user: {",
+									"            type: \"object\",",
+									"            properties: {",
+									"              id: { type: \"string\" },",
+									"              email: { type: \"string\" },",
+									"              first_name: { type: \"string\" },",
+									"              last_name: { type: \"string\" },",
+									"              public_address: { type: [\"string\", \"null\"] },",
+									"              created_at: { type: \"string\" },",
+									"              account_owner: { type: \"boolean\" },",
+									"              security: {",
+									"                type: \"object\",",
+									"                properties: {",
+									"                  ssi: { type: \"boolean\" },",
+									"                  groups: { type: \"array\" },",
+									"                  permissions: { type: \"array\" },",
+									"                  group_permissions: { type: \"array\" },",
+									"                  direct_permissions: { type: \"array\" },",
+									"                },",
+									"              },",
+									"              account_id: { type: \"string\" },",
+									"              timezone: { type: \"string\" },",
+									"              phone: { type: \"string\" },",
+									"              phone_verified: { type: \"boolean\" },",
+									"              verified_for_calls: { type: \"boolean\" },",
+									"              twilio_number: { type: [\"string\", \"null\"] },",
+									"              twilio_numbers: { type: \"array\" },",
+									"              country: { type: \"string\" },",
+									"              country_code: { type: \"string\" },",
+									"              telephony: { type: \"boolean\" },",
+									"              google: { type: \"boolean\" },",
+									"              google_account: { type: [\"string\", \"null\"] },",
+									"              quickbooks: { type: \"boolean\" },",
+									"              image: { type: [\"string\", \"null\"] },",
+									"              settings: {",
+									"                type: \"object\",",
+									"                properties: {",
+									"                  locale: { type: \"string\" },",
+									"                  default_country: { type: \"string\" },",
+									"                },",
+									"              },",
+									"              has_templates: { type: \"boolean\" },",
+									"              facebook_id: { type: [\"string\", \"null\"] },",
+									"              facebook_auth: { type: \"boolean\" },",
+									"              linkedin_id: { type: [\"string\", \"null\"] },",
+									"              linkedin_auth: { type: \"boolean\" },",
+									"              one_signal_ids: { type: \"array\" },",
+									"              has_docusign: { type: \"boolean\" },",
+									"            },",
+									"          },",
+									"        },",
+									"        required: [\"success\", \"version\", \"token\", \"urls\", \"user\"],",
+									"      },",
+									"      process_time: { type: \"number\" },",
+									"    },",
+									"    required: [\"response\", \"process_time\"],",
+									"  };",
+									"",
+									"  var response = pm.response.json();",
+									"  pm.expect(tv4.validate(response, schema)).to.be.true;",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "1229db9d-6d01-4755-9cc2-0378401b24a4",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "0e9ea06cb229bb035c13931944934669cab99522",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"vrushti.vachhani@simformsolutions.com\",\n  \"password\": \"Vrush0821@\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{Baseurl}}/auth/",
+							"host": [
+								"{{Baseurl}}"
+							],
+							"path": [
+								"auth",
+								""
+							]
+						},
+						"description": "### Authenciate User\n\nThis endpoint is used to authenticate a user by providing their email and password.\n\n#### Request Body\n\n- `email` (string): The email of the user.\n- `password` (string): The password of the user.\n    \n\n#### Response\n\nThe response will include the authentication token and user details upon successful authentication."
+					},
+					"response": []
+				}
+			],
+			"id": "efe3d9d2-0dbd-4ffd-a7f4-36156f814aae"
+		},
+		{
+			"name": "Core",
+			"item": [
+				{
+					"name": "User Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b896c784-ece3-4ecb-9f67-65a5bcc67830",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"user\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"email\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"created_at\": { \"type\": \"string\", \"format\": \"date-time\" },",
+									"            \"account_owner\": { \"type\": \"boolean\" },",
+									"            \"security\": { \"type\": \"object\" },",
+									"            \"account_id\": { \"type\": \"string\" },",
+									"            \"timezone\": { \"type\": \"string\" },",
+									"            \"phone_verified\": { \"type\": \"boolean\" },",
+									"            \"country\": { \"type\": \"string\" },",
+									"            \"country_code\": { \"type\": \"string\" },",
+									"            \"telephony\": { \"type\": \"boolean\" },",
+									"            \"settings\": { \"type\": \"object\" }",
+									"          },",
+									"          \"required\": [\"id\", \"email\", \"first_name\", \"last_name\", \"created_at\", \"account_owner\", \"security\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"user\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "6994fdd8-9fa2-4173-9542-1a5f31d11c35",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Baseurl}}/auth/user/",
+							"host": [
+								"{{Baseurl}}"
+							],
+							"path": [
+								"auth",
+								"user",
+								""
+							]
+						},
+						"description": "### Get User Authentication Details\n\nThis endpoint is used to retrieve the authentication details of the user.\n\n#### Request\n\n- Method: GET\n- Endpoint: {{Baseurl}}/auth/user/\n    \n\n#### Response\n\nThe response will include the authentication details of the user."
+					},
+					"response": []
+				},
+				{
+					"name": "Account Info",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "cc17194f-e319-4f1a-9021-b4f5becf54ee",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"address\": { \"type\": \"object\" },",
+									"            \"country\": { \"type\": \"string\" },",
+									"            \"created_at\": { \"type\": \"string\", \"format\": \"date-time\" },",
+									"            \"last_modified\": { \"type\": [\"string\", \"null\"] },",
+									"            \"settings\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"records_per_page\": { \"type\": \"integer\" },",
+									"                \"default_phone_country\": { \"type\": \"string\" },",
+									"                \"default_locale\": { \"type\": \"string\" },",
+									"                \"cards\": { \"type\": \"object\" }",
+									"              }",
+									"            },",
+									"            \"paths\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"www\": { \"type\": \"string\" },",
+									"                \"api\": { \"type\": \"string\" },",
+									"                \"ui\": { \"type\": \"string\" },",
+									"                \"api_url\": { \"type\": \"string\" },",
+									"                \"onesignal_app_id\": { \"type\": \"string\" }",
+									"              }",
+									"            },",
+									"            \"billing_plan\": { \"type\": [\"string\", \"null\"] },",
+									"            \"price_per_user\": { \"type\": \"number\" },",
+									"            \"trial_days_left\": { \"type\": \"integer\" },",
+									"            \"is_paid\": { \"type\": \"boolean\" },",
+									"            \"is_trial\": { \"type\": \"boolean\" },",
+									"            \"total_users\": { \"type\": \"integer\" },",
+									"            \"image\": { \"type\": [\"string\", \"null\"] },",
+									"            \"image_name\": { \"type\": [\"string\", \"null\"] },",
+									"            \"trial_days\": { \"type\": \"integer\" }",
+									"          },",
+									"          \"required\": [\"id\", \"name\", \"address\", \"country\", \"created_at\", \"settings\", \"paths\", \"price_per_user\", \"trial_days_left\", \"is_paid\", \"is_trial\", \"total_users\", \"trial_days\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "4377d27d-fcbd-45f3-9ae2-98eaf06fe333",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Baseurl}}/account/",
+							"host": [
+								"{{Baseurl}}"
+							],
+							"path": [
+								"account",
+								""
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the account information. The request does not require a request body, and the response will include the account details such as account ID, username, email, and any other relevant account information."
+					},
+					"response": []
+				},
+				{
+					"name": "Password Reset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "d04d28c2-8a20-4ff7-b2e2-c47256f66667",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"reset\": { \"type\": \"boolean\" }",
+									"          },",
+									"          \"required\": [\"reset\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "016c190e-b84f-4e25-b186-bfcb28149be6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"vrushti.vachhani@simformsolutions.com\",\n  \"code\": \"\",\n  \"password\": \"Vrush0821\",\n  \"password_confirm\": \"Vrush0821\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/account/user/password/reset/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"account",
+								"user",
+								"password",
+								"reset",
+								""
+							]
+						},
+						"description": "### Reset User Password\n\nThis endpoint allows the user to reset their password by providing their email, verification code, new password, and confirming the new password.\n\n#### Request Body\n\n- email (string, required): The email address of the user.\n- code (string, required): The verification code sent to the user's email.\n- password (string, required): The new password.\n- password_confirm (string, required): Confirmation of the new password.\n    \n\n#### Response\n\nThe response for this request follows the JSON schema below:\n\n``` json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"success\": {\n      \"type\": \"boolean\"\n    },\n    \"message\": {\n      \"type\": \"string\"\n    }\n  }\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"id": "76189430-e5a3-4122-9363-220270bf45e3"
+		},
+		{
+			"name": "Billing",
+			"item": [
+				{
+					"name": "Call Balance Amount",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dbda8150-e7b4-492b-8e87-260935b458ce",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": [\"string\", \"null\"] },",
+									"            \"balance\": { \"type\": \"integer\" },",
+									"            \"cached\": { \"type\": \"boolean\" }",
+									"          },",
+									"          \"required\": [\"id\", \"balance\", \"cached\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "690c84b7-74d1-4cb6-b745-dd5cd94e1d51",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Baseurl}}/billing/calls/balance/",
+							"host": [
+								"{{Baseurl}}"
+							],
+							"path": [
+								"billing",
+								"calls",
+								"balance",
+								""
+							]
+						},
+						"description": "This endpoint allows you to retrieve the balance information for billing calls.\n\n### Request\n\nNo request body is required for this endpoint.\n\n### Response\n\n- `balance`: (number) The current balance for billing calls.\n- `currency`: (string) The currency in which the balance is represented.\n    \n\nExample response:\n\n``` json\n{\n    \"balance\": 100.00,\n    \"currency\": \"USD\"\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"id": "93d53ab0-6617-4b4f-952d-c81497d4b930"
+		},
+		{
+			"name": "Forms",
+			"item": [
+				{
+					"name": "Custom Forms",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83bb9213-4f19-49bb-b2c9-86e6c86f0a07",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"total\": { \"type\": \"integer\" },",
+									"        \"results\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": { \"type\": \"object\" }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"total\", \"results\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "fe2cad59-7a09-4fc6-bb4f-e3b7e528a5be",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{Baseurl}}/forms/",
+							"host": [
+								"{{Baseurl}}"
+							],
+							"path": [
+								"forms",
+								""
+							]
+						},
+						"description": "### Get Forms\n\nThis endpoint makes an HTTP GET request to retrieve a list of forms.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response\n\n- `forms`: An array of form objects containing information about each form.\n    - `id`: The unique identifier of the form.\n    - `name`: The name of the form.\n    - `description`: The description of the form.\n    - `fields`: An array of field objects containing information about each field within the form.\n        - `id`: The unique identifier of the field.\n        - `name`: The name of the field.\n        - `type`: The type of the field (e.g., text, checkbox, dropdown).\n        - `required`: Indicates if the field is required.\n        - `options`: An array of options for dropdown or checkbox type fields."
+					},
+					"response": []
+				}
+			],
+			"id": "7d709982-6dde-4a8f-b726-519e894a7011"
+		},
+		{
+			"name": "Contacts",
+			"item": [
+				{
+					"name": "Get Contacts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "94a43191-7e60-4501-ba2d-7b5405a11e5d",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"total\": { \"type\": \"integer\" },",
+									"        \"start\": { \"type\": \"integer\" },",
+									"        \"limit\": { \"type\": \"integer\" },",
+									"        \"filter\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"              \"and\": {",
+									"                \"type\": \"array\",",
+									"                \"items\": {",
+									"                  \"type\": \"object\",",
+									"                  \"properties\": {",
+									"                    \"operator\": { \"type\": \"string\" },",
+									"                    \"value\": { \"type\": \"string\" },",
+									"                    \"name\": { \"type\": \"string\" }",
+									"                  },",
+									"                  \"required\": [\"operator\", \"value\", \"name\"]",
+									"                }",
+									"              }",
+									"            }",
+									"          }",
+									"        },",
+									"        \"results\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": { \"type\": \"object\" }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"total\", \"start\", \"limit\", \"filter\", \"results\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "0031e909-c25b-4ea3-ada9-c8a94ab83662",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/?start=5&limit=8&filter=%5B%7B%22and%22%3A%5B%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Eric%22%2C%22name%22%3A%22first_name%22%7D%5D%7D%5D%0A",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "5"
+								},
+								{
+									"key": "limit",
+									"value": "8"
+								},
+								{
+									"key": "filter",
+									"value": "%5B%7B%22and%22%3A%5B%7B%22operator%22%3A%22eq%22%2C%22value%22%3A%22Eric%22%2C%22name%22%3A%22first_name%22%7D%5D%7D%5D%0A"
+								}
+							]
+						},
+						"description": "### Get Contacts\n\nThis endpoint retrieves a list of contacts based on the provided parameters.\n\n#### Request\n\n- Method: GET\n- URL: `https://api.cogmento.com/api/1/contacts/`\n- Query Parameters:\n    - start (integer): The starting index for the contacts list\n    - limit (integer): The maximum number of contacts to retrieve\n    - filter (array of objects): An array of filter objects to apply to the contacts list\n\n#### Response\n\n- Status: 200\n- Content-Type: application/json\n- Body:\n    \n    ``` json\n    {\n        \"response\": {\n            \"success\": true,\n            \"version\": \"\",\n            \"total\": 0,\n            \"start\": 0,\n            \"limit\": 0,\n            \"filter\": [\n                {\n                    \"and\": [\n                        {\n                            \"operator\": \"\",\n                            \"value\": \"\",\n                            \"name\": \"\"\n                        }\n                    ]\n                }\n            ],\n            \"results\": []\n        },\n        \"process_time\": 0\n    }\n    \n     ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Contact",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e12b2004-8168-4b62-ae05-edf41891edb5",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"account_id\": { \"type\": \"string\" },",
+									"            \"template_id\": { \"type\": [\"string\", \"null\"] },",
+									"            \"created_at\": { \"type\": \"string\" },",
+									"            \"last_modified\": { \"type\": \"string\" },",
+									"            \"created_by\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"id\": { \"type\": \"string\" },",
+									"                \"email\": { \"type\": \"string\" },",
+									"                \"name\": { \"type\": \"string\" },",
+									"                \"notification_opt_in\": { \"type\": \"boolean\" }",
+									"              },",
+									"              \"required\": [\"id\", \"email\", \"name\", \"notification_opt_in\"]",
+									"            },",
+									"            \"aux_id\": { \"type\": [\"string\", \"null\"] },",
+									"            \"aux_source\": { \"type\": [\"string\", \"null\"] },",
+									"            \"aux_source_name\": { \"type\": [\"string\", \"null\"] },",
+									"            \"private\": { \"type\": \"boolean\" },",
+									"            \"acl\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"tags\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },",
+									"            \"rating\": { \"type\": \"integer\" },",
+									"            \"flags\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"new\": { \"type\": \"boolean\" },",
+									"                \"updated\": { \"type\": \"boolean\" },",
+									"                \"email_received\": { \"type\": \"boolean\" },",
+									"                \"task_assigned\": { \"type\": \"boolean\" },",
+									"                \"case_assigned\": { \"type\": \"boolean\" },",
+									"                \"event_assigned\": { \"type\": \"boolean\" },",
+									"                \"call_assigned\": { \"type\": \"boolean\" }",
+									"              },",
+									"              \"required\": [\"new\", \"updated\", \"email_received\", \"task_assigned\", \"case_assigned\", \"event_assigned\", \"call_assigned\"]",
+									"            },",
+									"            \"_uri\": { \"type\": \"string\" },",
+									"            \"_type\": { \"type\": \"string\" },",
+									"            \"last_call\": { \"type\": [\"string\", \"null\"] },",
+									"            \"last_event\": { \"type\": [\"string\", \"null\"] },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"middle_name\": { \"type\": [\"string\", \"null\"] },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": [\"string\", \"null\"] },",
+									"            \"timezone\": { \"type\": [\"string\", \"null\"] },",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"image\": { \"type\": [\"string\", \"null\"] },",
+									"            \"channels\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"addresses\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"company\": { \"type\": \"object\" },",
+									"            \"access\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"private\": { \"type\": \"boolean\" },",
+									"                \"users\": { \"type\": [\"array\", \"null\"] }",
+									"              },",
+									"              \"required\": [\"private\", \"users\"]",
+									"            },",
+									"            \"notes\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"alerts\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"tasks\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"cases\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"deals\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"calls\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"events\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"documents\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"sms\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"campaigns\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"credentials\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"whatsapp\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"submissions\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"invoices\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"id\", \"account_id\", \"created_at\", \"last_modified\", \"created_by\", \"private\", \"flags\", \"_uri\", \"_type\", \"first_name\", \"last_name\", \"full_name\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },",
+									"            \"invalid\": { \"type\": \"array\", \"items\": { \"type\": \"string\" } },",
+									"            \"errors\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"valid\", \"invalid\", \"errors\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "a48744b4-aef3-4847-ba92-57f75df6b608",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							},
+							{
+								"key": "token",
+								"value": "token 0e9ea06cb229bb035c13931944934669cab99522",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Krisha\",\r\n    \"last_name\": \"Vachhani\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "b041e834-d8ea-49e3-a72c-4b6fcc5c1b19"
+		},
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "Get Contacts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "856135f5-e1e7-43e8-89d4-eba1e28c3f61",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"results\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"              \"name\": { \"type\": \"string\" },",
+									"              \"view\": {",
+									"                \"type\": \"array\",",
+									"                \"items\": {",
+									"                  \"type\": \"object\",",
+									"                  \"properties\": {",
+									"                    \"name\": { \"type\": \"string\" }",
+									"                  },",
+									"                  \"required\": [\"name\"]",
+									"                }",
+									"              },",
+									"              \"model_type\": { \"type\": \"string\" },",
+									"              \"filter\": { \"type\": [\"object\", \"null\"] }",
+									"            },",
+									"            \"required\": [\"name\", \"view\", \"model_type\", \"filter\"]",
+									"          }",
+									"        },",
+									"        \"total\": { \"type\": \"integer\" }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"results\", \"total\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "62aa91bf-bc29-413f-b849-5594d65aaf58",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Linux\""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 0e9ea06cb229bb035c13931944934669cab99522"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Microsoft Edge\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-site"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "host",
+								"value": "api.cogmento.com"
+							}
+						],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/gridview/contact/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"gridview",
+								"contact",
+								""
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a grid view of contacts from the Cogmento API.\n\n### Request Body\n\nThis request does not require a request body.\n\n### Response Body\n\nThe response will contain the grid view of contacts, including their details such as name, email, phone number, and any other relevant contact information."
+					},
+					"response": []
+				},
+				{
+					"name": "All Contact Names",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "bbb4c472-c33a-4f6e-a914-e7d1f8049d88",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 2000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "2e04e514-83d8-4d55-a901-b4a97497b862",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "sec-ch-ua-platform",
+								"value": "\"Linux\""
+							},
+							{
+								"key": "Authorization",
+								"value": "Token 0e9ea06cb229bb035c13931944934669cab99522"
+							},
+							{
+								"key": "User-Agent",
+								"value": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							},
+							{
+								"key": "sec-ch-ua",
+								"value": "\"Microsoft Edge\";v=\"131\", \"Chromium\";v=\"131\", \"Not_A Brand\";v=\"24\""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "sec-ch-ua-mobile",
+								"value": "?0"
+							},
+							{
+								"key": "Sec-Fetch-Site",
+								"value": "same-site"
+							},
+							{
+								"key": "Sec-Fetch-Mode",
+								"value": "cors"
+							},
+							{
+								"key": "Sec-Fetch-Dest",
+								"value": "empty"
+							},
+							{
+								"key": "host",
+								"value": "api.cogmento.com"
+							}
+						],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/?start=0&filter=null&sort=&export=false",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "filter",
+									"value": "null"
+								},
+								{
+									"key": "sort",
+									"value": ""
+								},
+								{
+									"key": "export",
+									"value": "false"
+								}
+							]
+						},
+						"description": "This endpoint retrieves a list of contacts. The request parameters include:\n\n- `start`: The starting index for the list of contacts to retrieve.\n- `filter`: The filter criteria for the contacts.\n- `sort`: The sorting criteria for the contacts.\n- `export`: A boolean flag to indicate if the contacts should be exported.\n    \n\nThe response will include the list of contacts based on the provided parameters."
+					},
+					"response": []
+				},
+				{
+					"name": "Dropdown under Names list",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f5c5f562-ef69-4cce-8bd2-f1e60d2e55a4",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 800ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(800);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"total\": { \"type\": \"integer\" },",
+									"        \"results\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": { \"type\": \"object\" }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"total\", \"results\"]",
+									"    },",
+									"    \"process_time\": { \"type\": \"number\" }",
+									"  },",
+									"  \"required\": [\"response\", \"process_time\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "519b9c02-d96e-482f-87c2-cfbf6f99b4e6",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/campaigns/?start=0&filter=%7B%7D&sort=",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"campaigns",
+								""
+							],
+							"query": [
+								{
+									"key": "start",
+									"value": "0"
+								},
+								{
+									"key": "filter",
+									"value": "%7B%7D"
+								},
+								{
+									"key": "sort",
+									"value": ""
+								}
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of campaigns. The request includes query parameters for start, filter, and sort. The start parameter is used for pagination, filter parameter allows filtering the campaigns, and sort parameter is used for sorting the results. The response will include the list of campaigns based on the provided query parameters."
+					},
+					"response": []
+				},
+				{
+					"name": "Eye Option",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "68800d0a-4b79-4669-808c-8dda21d6f4be",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"results\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"company\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": { \"id\": { \"type\": \"string\" }, \"name\": { \"type\": \"string\" } }",
+									"            },",
+									"            \"channels\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"addresses\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"company\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"results\"]",
+									"    },",
+									"    \"process_time\": { \"type\": \"number\" }",
+									"  },",
+									"  \"required\": [\"response\", \"process_time\"]",
+									"};",
+									"",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "306b1244-93c8-44d3-a5ab-bce4e249ac37",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/9fdb15c7-3885-4e17-aba0-e55aa6a14028/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								"9fdb15c7-3885-4e17-aba0-e55aa6a14028",
+								""
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve the details of a specific contact identified by the unique ID \"9fdb15c7-3885-4e17-aba0-e55aa6a14028\" from the Cogmento API.\n\n### Request Body\n\nThis request does not require a request body.\n\n### Response Body\n\n- `id`: The unique identifier of the contact.\n- `first_name`: The first name of the contact.\n- `last_name`: The last name of the contact.\n- `email`: The email address of the contact.\n- `phone`: The phone number of the contact.\n- `created_at`: The timestamp when the contact was created.\n- `updated_at`: The timestamp when the contact was last updated.\n    \n\nThe response will include the details of the contact including their ID, first name, last name, email, phone number, and timestamps for creation and last update."
+					},
+					"response": []
+				},
+				{
+					"name": "Edit Option",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "240095c7-07dc-448e-8ebd-fee13c7cbb66",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"results\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"company\": { \"type\": \"object\", \"properties\": { \"id\": { \"type\": \"string\" }, \"name\": { \"type\": \"string\" } } },",
+									"            \"channels\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"addresses\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"company\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"results\"]",
+									"    },",
+									"    \"process_time\": { \"type\": \"number\" }",
+									"  },",
+									"  \"required\": [\"response\", \"process_time\"]",
+									"};",
+									"",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c6610dc3-3c4a-47a5-859e-ded753dd172d",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/4fd6bdca-958d-47ee-a986-b8ca4e3cec27/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								"4fd6bdca-958d-47ee-a986-b8ca4e3cec27",
+								""
+							]
+						},
+						"description": "### Get Contact Details\n\nThis endpoint retrieves the details of a specific contact.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response Body\n\n- `id`: The unique identifier for the contact.\n- `first_name`: The first name of the contact.\n- `last_name`: The last name of the contact.\n- `email`: The email address of the contact.\n- `phone`: The phone number of the contact.\n- `created_at`: The date and time when the contact was created.\n- `updated_at`: The date and time when the contact was last updated."
+					},
+					"response": []
+				},
+				{
+					"name": "Call option",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ffd69446-4831-483c-8fc7-65f364af6454",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"results\": {",
+									"          \"type\": \"array\",",
+									"          \"items\": {",
+									"            \"type\": \"object\",",
+									"            \"properties\": {",
+									"              \"id\": { \"type\": \"string\" },",
+									"              \"name\": { \"type\": \"string\" },",
+									"              \"phone\": { \"type\": \"string\" },",
+									"              \"image\": { \"type\": [\"string\", \"null\"] },",
+									"              \"groups\": { ",
+									"                \"type\": \"array\", ",
+									"                \"items\": { \"type\": \"string\" }",
+									"              },",
+									"              \"notification_opt_in\": { \"type\": \"boolean\" }",
+									"            },",
+									"            \"required\": [\"id\", \"name\", \"groups\", \"notification_opt_in\"]",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"results\"]",
+									"    },",
+									"    \"process_time\": { \"type\": \"number\" }",
+									"  },",
+									"  \"required\": [\"response\", \"process_time\"]",
+									"};",
+									"",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "324e7daa-53e0-4bd7-a899-fa991f79fde2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/account/accountusers/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"account",
+								"accountusers",
+								""
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve a list of account users from the Cogmento API.\n\n### Request\n\nNo request body is required for this endpoint.\n\n### Response\n\nThe response will include an array of account user objects, each containing details such as user ID, username, email, and role. The response body will provide information about the account users associated with the account.\n\nExample response:\n\n``` json\n[\n    {\n        \"id\": \"user_id\",\n        \"username\": \"username\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user_role\"\n    },\n    {\n        \"id\": \"user_id\",\n        \"username\": \"username\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user_role\"\n    }\n]\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Button",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b9366d88-f2e3-4ab3-ba4a-b06c5d6b6072",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"middle_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": \"string\" },",
+									"            \"timezone\": { \"type\": \"string\" },",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"image\": { \"type\": [\"string\", \"null\"] },",
+									"            \"channels\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"tags\": { ",
+									"              \"type\": \"array\", ",
+									"              \"items\": { ",
+									"                \"type\": \"object\",",
+									"                \"properties\": { \"id\": { \"type\": \"string\" }, \"name\": { \"type\": \"string\" } }",
+									"              }",
+									"            }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"full_name\", \"channels\", \"addresses\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "c57db423-e9b7-4b5b-98c0-0c2697fbee92",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Aaska\",\n  \"last_name\": \"Patel\",\n  \"middle_name\": \"Rameshbhai\",\n  \"description\": \"QA\",\n  \"timezone\": \"UTC\",\n  \"do_not_call\": true,\n  \"do_not_text\": true,\n  \"do_not_email\": true,\n  \"image\": \"\",\n  \"company\": {},\n  \"channels\": [\n    {\n      \"channel_type\": \"Phone\",\n      \"value\": \"\",\n      \"hint\": \"\",\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n    }\n  ],\n  \"addresses\": [\n    {}\n  ],\n  \"phone\": [\n    {\n      \"channel_type\": \"Phone\",\n      \"value\": \"\",\n      \"hint\": \"\",\n      \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n    }\n  ],\n  \"private\": true,\n  \"acl\": [\n    \"3fa85f64-5717-4562-b3fc-2c963f66afa6\"\n  ],\n  \"rating\": 0,\n  \"tags\": [\n    \"\"\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "The endpoint [https://api.cogmento.com/api/1/contacts/](https://api.cogmento.com/api/1/contacts/) is a POST request to create a new contact. The request body should contain the following parameters:\n\n- first_name (string): The first name of the contact.\n- last_name (string): The last name of the contact.\n- middle_name (string): The middle name of the contact.\n- description (string): A description for the contact.\n- timezone (string): The timezone of the contact.\n- do_not_call (boolean): Indicates if the contact should not be called.\n- do_not_text (boolean): Indicates if the contact should not be texted.\n- do_not_email (boolean): Indicates if the contact should not be emailed.\n- image (string): The image URL of the contact.\n- company (object): An object containing company details.\n- channels (array): An array of communication channels for the contact, including channel_type, value, and hint.\n- addresses (array): An array of addresses for the contact.\n- phone (array): An array of phone numbers for the contact, including channel_type and value.\n- private (boolean): Indicates if the contact is private.\n- acl (array): An array of access control list IDs.\n- rating (number): The rating of the contact.\n- tags (array): An array of tags for the contact.\n    \n\nThe response of this request will be a JSON schema representing the newly created contact, including all the details provided in the request body along with any additional system-generated fields."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Option",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "983c372b-665a-4256-9a41-5e60a5f083ed",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"deleted\": { \"type\": \"boolean\" },",
+									"        \"id\": { \"type\": \"string\" }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"id\", \"deleted\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "dd87524b-ec5e-4144-9aec-88a2937e19cb",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/3e326e14-4076-4942-867a-0dfcd5fe1238/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								"3e326e14-4076-4942-867a-0dfcd5fe1238",
+								""
+							]
+						},
+						"description": "### Delete Contact\n\nThis endpoint is used to delete a specific contact by providing the contact ID in the URL.\n\n#### Request Body\n\nThis request does not require a request body.\n\n#### Response Body\n\n- `response` (object)\n    - `success` (boolean): Indicates if the deletion was successful.\n    - `version` (string): The version information.\n    - `deleted` (boolean): Indicates if the contact was deleted.\n    - `id` (string): The ID of the deleted contact.\n- `process_time` (number): The time taken to process the request in seconds.\n    \n\n#### Example\n\n``` json\n{\n    \"response\": {\n        \"success\": true,\n        \"version\": \"\",\n        \"deleted\": true,\n        \"id\": \"\"\n    },\n    \"process_time\": 0\n}\n\n ```"
+					},
+					"response": []
+				}
+			],
+			"id": "e0ebbcd2-589d-4369-a1c7-069f93db2d7d"
+		},
+		{
+			"name": "Field Level Validations(Contact Page)",
+			"item": [
+				{
+					"name": "First Name Invalid Datatype",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2c359973-a3f1-48c2-baa5-be59a9b75bad",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": [\"string\", \"null\"] },  // null allowed for description",
+									"            \"timezone\": { \"type\": [\"string\", \"null\"] }, // null allowed for timezone",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"channels\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"addresses\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "527acdb5-d209-4b12-bf34-c9d22a1257b8",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Vrush243##$ti\",\n  \"last_name\": \"Vachhani\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "### Create a New Contact\n\nThis endpoint allows you to create a new contact in the Cogmento system.\n\n#### Request Body\n\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n    \n\n#### Response\n\nThe response will include the details of the newly created contact."
+					},
+					"response": []
+				},
+				{
+					"name": "Missing Middle Name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7c1cfbe2-45ab-4e51-8992-3a9aa0b10542",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": [\"string\", \"null\"] }, // Allows null values for description",
+									"            \"timezone\": { \"type\": [\"string\", \"null\"] }, // Allows null values for timezone",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"channels\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"addresses\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"company\": { \"type\": \"object\" },",
+									"            \"access\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"private\": { \"type\": \"boolean\" },",
+									"                \"users\": { \"type\": [\"array\", \"null\"] }",
+									"              }",
+									"            },",
+									"            \"notes\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"alerts\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"tasks\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"cases\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"deals\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"calls\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"events\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"documents\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"sms\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"campaigns\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"credentials\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"whatsapp\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"submissions\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } },",
+									"            \"invoices\": { \"type\": \"array\", \"items\": { \"type\": \"object\" } }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "e2849f2c-f7c4-4c57-8daa-3eb39f960f5c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"zsgfesdyg\",\n  \"last_name\": \"xdcfszegf\",\n  \"middle_name\": \" \"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "\n# Create a New Contact\n\nThis API endpoint is used to create a new contact in the Cogmento system.\n\n## Request Body\n- `first_name` (string, required): The first name of the contact.\n- `last_name` (string, required): The last name of the contact.\n- `middle_name` (string): The middle name of the contact.\n\n## Response\nThe response of this request is in JSON format and follows the schema below:\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": {\n      \"type\": \"string\"\n    },\n    \"first_name\": {\n      \"type\": \"string\"\n    },\n    \"last_name\": {\n      \"type\": \"string\"\n    },\n    \"middle_name\": {\n      \"type\": \"string\"\n    },\n    \"created_at\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    },\n    \"updated_at\": {\n      \"type\": \"string\",\n      \"format\": \"date-time\"\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Twitter ID Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "38e55151-bb22-4d9d-8ca2-f15671468a6a",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": [\"string\", \"null\"] },",
+									"            \"timezone\": { \"type\": [\"string\", \"null\"] },",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"channels\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"id\": { \"type\": \"string\" },",
+									"                  \"channel_type\": { \"type\": \"string\" },",
+									"                  \"value\": { \"type\": \"string\" },",
+									"                  \"hint\": { \"type\": [\"string\", \"null\"] },",
+									"                  \"social\": { \"type\": \"boolean\" },",
+									"                  \"call\": { \"type\": \"boolean\" },",
+									"                  \"sms\": { \"type\": \"boolean\" },",
+									"                  \"email\": { \"type\": \"boolean\" },",
+									"                  \"default\": { \"type\": \"boolean\" },",
+									"                  \"name\": { \"type\": [\"string\", \"null\"] }",
+									"                },",
+									"                \"required\": [\"id\", \"channel_type\", \"value\"]",
+									"              }",
+									"            },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"social\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"id\": { \"type\": \"string\" },",
+									"                  \"channel_type\": { \"type\": \"string\" },",
+									"                  \"value\": { \"type\": \"string\" },",
+									"                  \"hint\": { \"type\": [\"string\", \"null\"] },",
+									"                  \"social\": { \"type\": \"boolean\" },",
+									"                  \"call\": { \"type\": \"boolean\" },",
+									"                  \"sms\": { \"type\": \"boolean\" },",
+									"                  \"email\": { \"type\": \"boolean\" },",
+									"                  \"default\": { \"type\": \"boolean\" },",
+									"                  \"name\": { \"type\": [\"string\", \"null\"] }",
+									"                },",
+									"                \"required\": [\"id\", \"channel_type\", \"value\"]",
+									"              }",
+									"            },",
+									"            \"access\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"private\": { \"type\": \"boolean\" },",
+									"                \"users\": { \"type\": [\"array\", \"null\"] }",
+									"              }",
+									"            }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"channels\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" },",
+									"            \"errors\": { \"type\": \"array\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "6c1b2325-cf63-4491-82ac-9bee2d82de5e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Vrush243##$ti\",\n  \"last_name\": \"Vachhani\",\n  \"channels\": [\n                {\n                    \"id\": \"c1480390-dc3a-4126-a1a9-50b9f74b0700\",\n                    \"channel_type\": \"Twitter\",\n                    \"value\": \"sdfcvdegedgrtfvsd\",\n                    \"hint\": null,\n                    \"social\": true,\n                    \"call\": false,\n                    \"sms\": false,\n                    \"email\": false,\n                    \"default\": false,\n                    \"name\": null\n                }\n            ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "### Add Contact\n\nThis API endpoint is used to add a new contact to the system.\n\n#### Request Body\n\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n- `channels` (array): An array of contact channels containing the following fields:\n    - `id` (string): The unique identifier of the channel.\n    - `channel_type` (string): The type of channel (e.g., Twitter, Facebook, etc.).\n    - `value` (string): The value of the channel (e.g., username, handle, etc.).\n    - `hint` (string, optional): A hint or additional information about the channel.\n    - `social` (boolean): Indicates if the channel is for social media.\n    - `call` (boolean): Indicates if the channel is for making calls.\n    - `sms` (boolean): Indicates if the channel is for sending SMS.\n    - `email` (boolean): Indicates if the channel is for sending emails.\n    - `default` (boolean): Indicates if the channel is the default channel.\n    - `name` (string, optional): The name associated with the channel.\n\n#### Response\n\nThe response will contain the details of the newly added contact, including the unique identifier and any additional information associated with the contact."
+					},
+					"response": []
+				},
+				{
+					"name": "Email Verification",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "775985d5-7f95-4b1d-8bce-16ad760fe3b1",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 900ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(900);",
+									"});",
+									"",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"description\": { \"type\": [\"string\", \"null\"] },",
+									"            \"timezone\": { \"type\": [\"string\", \"null\"] },",
+									"            \"do_not_call\": { \"type\": \"boolean\" },",
+									"            \"do_not_text\": { \"type\": \"boolean\" },",
+									"            \"do_not_email\": { \"type\": \"boolean\" },",
+									"            \"channels\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"id\": { \"type\": \"string\" },",
+									"                  \"channel_type\": { \"type\": \"string\" },",
+									"                  \"value\": { \"type\": \"string\" },",
+									"                  \"hint\": { \"type\": [\"string\", \"null\"] },",
+									"                  \"social\": { \"type\": \"boolean\" },",
+									"                  \"call\": { \"type\": \"boolean\" },",
+									"                  \"sms\": { \"type\": \"boolean\" },",
+									"                  \"email\": { \"type\": \"boolean\" },",
+									"                  \"default\": { \"type\": \"boolean\" },",
+									"                  \"name\": { \"type\": [\"string\", \"null\"] }",
+									"                },",
+									"                \"required\": [\"id\", \"channel_type\", \"value\"]",
+									"              }",
+									"            },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"email\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"id\": { \"type\": \"string\" },",
+									"                  \"channel_type\": { \"type\": \"string\" },",
+									"                  \"value\": { \"type\": \"string\" },",
+									"                  \"hint\": { \"type\": [\"string\", \"null\"] },",
+									"                  \"social\": { \"type\": \"boolean\" },",
+									"                  \"call\": { \"type\": \"boolean\" },",
+									"                  \"sms\": { \"type\": \"boolean\" },",
+									"                  \"email\": { \"type\": \"boolean\" },",
+									"                  \"default\": { \"type\": \"boolean\" },",
+									"                  \"name\": { \"type\": [\"string\", \"null\"] }",
+									"                },",
+									"                \"required\": [\"id\", \"channel_type\", \"value\"]",
+									"              }",
+									"            },",
+									"            \"access\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"private\": { \"type\": \"boolean\" },",
+									"                \"users\": { \"type\": [\"array\", \"null\"] }",
+									"              }",
+									"            }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"channels\", \"email\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" },",
+									"            \"errors\": { \"type\": \"array\" }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "f1650fe7-74dc-462d-9e86-b42cf2bacd80",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Vrush243##$ti\",\n  \"last_name\": \"Vachhani\",\n  \"channels\": [\n                \n                {\n                    \"id\": \"ca429243-f9b9-46ca-aad3-4ff761500f43\",\n                    \"channel_type\": \"Email\",\n                    \"value\": \"vrushti@gmail.com\"\n                    \n                }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "\nThis API endpoint is used to create a new contact. The request should be sent as an HTTP POST to the specified URL. The request body should contain the details of the contact to be created, including the first name, last name, and communication channels. The communication channels should include an ID, channel type, and value.\n\n### Request Body\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n- `channels` (array): An array of communication channels for the contact, where each channel should include:\n  - `id` (string): The ID of the channel.\n  - `channel_type` (string): The type of communication channel.\n  - `value` (string): The value of the communication channel.\n\n### Response\nThe response to this request will contain the details of the newly created contact, including the contact ID, first name, last name, and communication channels.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "No Limit to Phone Number",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "93ee3456-501d-49dd-8d2e-318c711d9919",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "54b6bc78-aa78-44f4-b683-cc590c53d96c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"first_name\": \"Vrush243##$ti\",\n  \"last_name\": \"Vachhani\",\n  \"channels\": [\n   { \"id\": \"9de2239a-0648-48c8-ad2f-ac51fc9bc6ac\", \n     \"channel_type\": \"Phone\", \n     \"value\": \"87465297123870948347\", \n     \"hint\": \"IN\", \n     \"social\": false, \n     \"call\": true, \n     \"sms\": true, \n     \"email\": false, \n     \"default\": false, \n     \"name\": null }]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "\n### Create a New Contact\n\nThis API endpoint allows you to create a new contact in the system.\n\n#### Request Body\n- **first_name** (string) - The first name of the contact.\n- **last_name** (string) - The last name of the contact.\n- **channels** (array) - An array of channels associated with the contact, including channel type, value, and preferences.\n\n#### Response\nThe response is in JSON format and includes the following fields:\n- **success** (boolean) - Indicates whether the operation was successful.\n- **version** (string) - The version of the contact record.\n- **result** (object) - Details of the created contact, including various attributes such as ID, account ID, creation details, access control, tags, flags, and more.\n- **report** (object) - Validation report containing valid, invalid, and error details.\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"response\": {\n      \"type\": \"object\",\n      \"properties\": {\n        \"success\": { \"type\": \"boolean\" },\n        \"version\": { \"type\": \"string\" },\n        \"result\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"id\": { \"type\": \"string\" },\n            \"account_id\": { \"type\": \"string\" },\n            \"template_id\": { \"type\": [\"string\", \"null\"] },\n            \"created_at\": { \"type\": \"string\" },\n            \"last_modified\": { \"type\": \"string\" },\n            \"created_by\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"id\": { \"type\": \"string\" },\n                \"email\": { \"type\": \"string\" },\n                \"name\": { \"type\": \"string\" },\n                \"notification_opt_in\": { \"type\": \"boolean\" }\n              }\n            },\n            \"aux_id\": { \"type\": [\"string\", \"null\"] },\n            \"aux_source\": { \"type\": [\"string\", \"null\"] },\n            \"aux_source_name\": { \"type\": [\"string\", \"null\"] },\n            \"private\": { \"type\": \"boolean\" },\n            \"acl\": { \"type\": \"array\" },\n            \"tags\": { \"type\": \"array\" },\n            \"rating\": { \"type\": \"integer\" },\n            \"flags\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"new\": { \"type\": \"boolean\" },\n                \"updated\": { \"type\": \"boolean\" },\n                \"email_received\": { \"type\": \"boolean\" },\n                \"task_assigned\": { \"type\": \"boolean\" },\n                \"case_assigned\": { \"type\": \"boolean\" },\n                \"event_assigned\": { \"type\": \"boolean\" },\n                \"call_assigned\": { \"type\": \"boolean\" }\n              }\n            },\n            \"_uri\": { \"type\": \"string\" },\n            \"_type\": { \"type\": \"string\" },\n            \"last_call\": { \"type\": [\"object\", \"null\"] },\n            \"last_event\": { \"type\": [\"object\", \"null\"] },\n            \"first_name\": { \"type\": \"string\" },\n            \"last_name\": { \"type\": \"string\" },\n            \"middle_name\": { \"type\": [\"string\", \"null\"] },\n            \"full_name\": { \"type\": \"string\" },\n            \"name\": { \"type\": \"string\" },\n            \"description\": { \"type\": [\"string\", \"null\"] },\n            \"timezone\": { \"type\": [\"string\", \"null\"] },\n            \"do_not_call\": { \"type\": \"boolean\" },\n            \"do_not_text\": { \"type\": \"boolean\" },\n            \"do_not_email\": { \"type\": \"boolean\" },\n            \"image\": { \"type\": [\"string\", \"null\"] },\n            \"channels\": { \"type\": \"array\" },\n            \"addresses\": { \"type\": \"array\" },\n            \"company\": { \"type\": \"object\" },\n            \"access\": {\n              \"type\": \"object\",\n              \"properties\": {\n                \"private\": { \"type\": \"boolean\" },\n                \"users\": { \"type\": [\"array\", \"null\"] }\n              }\n            },\n            \"notes\": { \"type\": \"array\" },\n            \"alerts\": { \"type\": \"array\" },\n            \"tasks\": { \"type\": \"array\" },\n            \"cases\": { \"type\": \"array\" },\n            \"deals\": { \"type\": \"array\" },\n            \"calls\": { \"type\": \"array\" },\n            \"events\": { \"type\": \"array\" },\n            \"documents\": { \"type\": \"array\" },\n            \"sms\": { \"type\": \"array\" },\n            \"campaigns\": { \"type\": \"array\" },\n            \"credentials\": { \"type\": \"array\" },\n            \"whatsapp\": { \"type\": \"array\" },\n            \"submissions\": { \"type\": \"array\" },\n            \"invoices\": { \"type\": \"array\" }\n          }\n        },\n        \"report\": {\n          \"type\": \"object\",\n          \"properties\": {\n            \"valid\": { \"type\": \"array\" },\n            \"invalid\": { \"type\": \"array\" },\n            \"errors\": { \"type\": \"array\" }\n          }\n        },\n        \"process_time\": { \"type\": \"integer\" }\n      }\n    }\n  }\n}\n```\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Address Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "40c8e195-b1bf-4bff-85bc-c420a944e0cf",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Define the schema",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"full_name\": { \"type\": \"string\" },",
+									"            \"name\": { \"type\": \"string\" },",
+									"            \"channels\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { ",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"id\": { \"type\": \"string\" },",
+									"                  \"channel_type\": { \"type\": \"string\" },",
+									"                  \"value\": { \"type\": \"string\" }",
+									"                },",
+									"                \"required\": [\"id\", \"channel_type\", \"value\"]",
+									"              }",
+									"            },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"channels\", \"addresses\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" },",
+									"            \"errors\": { \"type\": \"array\" },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": {",
+									"                \"type\": \"object\",",
+									"                \"properties\": {",
+									"                  \"error\": { \"type\": \"string\" },",
+									"                  \"details\": { \"type\": \"string\" }",
+									"                },",
+									"                \"required\": [\"error\", \"details\"]",
+									"              }",
+									"            }",
+									"          }",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation test",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "0cae5267-4df9-404e-a65e-1d35616f811c",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_name\": \"Vrush243##$ti\",\r\n    \"last_name\": \"Vachhani\",\r\n   \"addresses\": [\r\n                {\r\n                    \"id\": \"45f679df-bad2-436c-b20e-d6cf9a49cfae\",\r\n                    \"address\": \"122334\",\r\n                    \"city\": \"\",\r\n                    \"state\": \"\",\r\n                    \"zip\": \"\",\r\n                    \"country\": \"\",\r\n                    \"country_code\": \"\",\r\n                    \"map_url\": null,\r\n                    \"lat\": null,\r\n                    \"lng\": null\r\n                }\r\n            ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "### Add Contact\n\nThis endpoint allows the user to add a new contact to the system.\n\n#### Request Body\n\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n- `addresses` (array): An array of addresses associated with the contact, including address, city, state, zip, country, and map URL.\n    \n\nExample:\n\n``` json\n{\n  \"first_name\": \"Vrush243##$ti\",\n  \"last_name\": \"Vachhani\",\n  \"addresses\": [\n    {\n      \"id\": \"45f679df-bad2-436c-b20e-d6cf9a ...\",\n      \"address\": \"122334\",\n      \"city\": \"\",\n      \"state\": \"\",\n      \"zip\": \"\",\n      \"country\": \"\",\n      \"country_code\": \"\",\n      \"map_url\": null,\n      \"lat\": null,\n      \"lng\": null\n    }\n  ]\n}\n\n ```\n\n#### Response\n\n- `Status`: 201\n- `Content-Type`: application/json\n- `response.success` (boolean): Indicates if the operation was successful.\n- `response.result.id` (string): The ID of the newly created contact.\n- Various other fields containing contact details such as name, description, timezone, and communication preferences.\n    \n\nExample:\n\n``` json\n{\n  \"response\": {\n    \"success\": true,\n    \"result\": {\n      \"id\": \"generated_id\",\n      \"first_name\": \"Vrush243##$ti\",\n      \"last_name\": \"Vachhani\",\n      \"description\": null,\n      \"timezone\": null,\n      \"do_not_call\": true,\n      \"do_not_text\": true,\n      \"do_not_email\": true,\n      \"addresses\": [],\n      \"company\": {},\n      \"access\": {\n        \"private\": true,\n        \"users\": null\n      },\n      \"notes\": [],\n      \"alerts\": [],\n      \"tasks\": [],\n      \"cases\": [],\n      \"deals\": [],\n      \"calls\": [],\n      \"events\": [],\n      \"documents\": [],\n      \"sms\": [],\n      \"campaigns\": [],\n      \"credentials\": [],\n      \"whatsapp\": [],\n      \"submissions\": [],\n      \"invoices\": []\n    },\n    \"report\": {\n      \"valid\": [\"\"],\n      \"invalid\": [\"\"],\n      \"errors\": [\"\"],\n      \"addresses\": [\n        {\n          \"error\": \"\",\n          \"details\": \"\"\n        }\n      ]\n    }\n  },\n  \"process_time\": 0\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Future Birthdate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "4b93be8b-29a6-472e-9fe0-d461ee8e012a",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "36d61068-3480-4c55-801b-96715fcee9d2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"first_name\": \"Mahima \", \r\n    \"last_name\": \"Gandhi\", \r\n    \"birthday\": \r\n    { \"day\": \"31\", \r\n    \"year\": \"2066\", \r\n    \"month\": 2 \r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "## Contacts Creation\n\nThis endpoint allows the creation of a new contact in the Cogmento system.\n\n### Request Body\n\n- **first_name** (string, required): The first name of the contact.\n- **last_name** (string, required): The last name of the contact.\n- **birthday** (object, required): The birthday of the contact, with day, year, and month fields.\n    \n\nExample:\n\n``` json\n{\n    \"first_name\": \"Mahima\",\n    \"last_name\": \"Gandhi\",\n    \"birthday\": {\n        \"day\": \"31\",\n        \"year\": \"2066\",\n        \"month\": 2\n    }\n}\n\n ```\n\n### Response (201 - Created)\n\nThe response will be a JSON object with the following schema:\n\n``` json\n{\n    \"response\": {\n        \"success\": true,\n        \"version\": \"\",\n        \"result\": {\n            \"id\": \"\",\n            \"account_id\": \"\",\n            \"template_id\": null,\n            \"created_at\": \"\",\n            \"last_modified\": \"\",\n            \"created_by\": {\n                \"id\": \"\",\n                \"email\": \"\",\n                \"name\": \"\",\n                \"notification_opt_in\": true\n            },\n            \"aux_id\": null,\n            \"aux_source\": null,\n            \"aux_source_name\": null,\n            \"private\": true,\n            \"acl\": [],\n            \"tags\": [],\n            \"rating\": 0,\n            \"flags\": {\n                \"new\": true,\n                \"updated\": true,\n                \"email_received\": true,\n                \"task_assigned\": true,\n                \"case_assigned\": true,\n                \"event_assigned\": true,\n                \"call_assigned\": true\n            },\n            \"_uri\": \"\",\n            \"_type\": \"\",\n            \"birthday\": {\n                \"day\": \"\",\n                \"year\": \"\",\n                \"month\": 0\n            },\n            \"last_call\": null,\n            \"last_event\": null,\n            \"first_name\": \"\",\n            \"last_name\": \"\",\n            \"middle_name\": null,\n            \"full_name\": \"\",\n            \"name\": \"\",\n            \"description\": null,\n            \"timezone\": null,\n            \"do_not_call\": true,\n            \"do_not_text\": true,\n            \"do_not_email\": true,\n            \"image\": null,\n            \"channels\": [],\n            \"addresses\": [],\n            \"company\": {},\n            \"access\": {\n                \"private\": true,\n                \"users\": null\n            },\n            \"notes\": [],\n            \"alerts\": [],\n            \"tasks\": [],\n            \"cases\": [],\n            \"deals\": [],\n            \"calls\": [],\n            \"events\": [],\n            \"documents\": [],\n            \"sms\": [],\n            \"campaigns\": [],\n            \"credentials\": [],\n            \"whatsapp\": [],\n            \"submissions\": [],\n            \"invoices\": []\n        },\n        \"report\": {\n            \"valid\": [\"\"],\n            \"invalid\": [],\n            \"errors\": []\n        },\n        \"process_time\": 0\n    }\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Birthdate",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "81b628da-f318-40ce-bfba-9b955968e4f5",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "bac2f2d0-f25a-41b2-91d7-3ceb634b251b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{ \r\n    \"first_name\": \"Mahima \", \r\n    \"last_name\": \"Gandhi\", \r\n    \"birthday\": \r\n    { \"day\": \"msdncsv\", \r\n    \"year\": \"scnkdfojiv\", \r\n    \"month\": 2 \r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "### Add Contact\n\nThis endpoint is used to add a new contact to the system.\n\n#### Request Body\n\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n- `birthday` (object): The birthday of the contact, including day, year, and month.\n    \n\n#### Response\n\nUpon a successful creation of the contact, the response will include:\n\n- `success` (boolean): Indicates if the operation was successful.\n- `result` (object): Contains the details of the newly created contact, including ID, account ID, creation information, and contact preferences.\n- `process_time` (number): The time taken to process the request in milliseconds.\n    \n\nIn case of any validation errors, the response will include:\n\n- `valid` (array): List of valid entries.\n- `invalid` (array): List of invalid entries.\n- `errors` (array): List of errors encountered during validation."
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid Facebook ID Format",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3092d41b-3b75-45e7-b456-f51525f96395",
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {",
+									"    pm.response.to.have.status(201);",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 1000ms\", function () {",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});",
+									"",
+									"// Define the schema for validation",
+									"const schema = {",
+									"  \"type\": \"object\",",
+									"  \"properties\": {",
+									"    \"response\": {",
+									"      \"type\": \"object\",",
+									"      \"properties\": {",
+									"        \"success\": { \"type\": \"boolean\" },",
+									"        \"version\": { \"type\": \"string\" },",
+									"        \"result\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"id\": { \"type\": \"string\" },",
+									"            \"first_name\": { \"type\": \"string\" },",
+									"            \"last_name\": { \"type\": \"string\" },",
+									"            \"birthday\": {",
+									"              \"type\": \"object\",",
+									"              \"properties\": {",
+									"                \"day\": { \"type\": \"string\" },",
+									"                \"year\": { \"type\": \"string\" },",
+									"                \"month\": { \"type\": \"string\" }",
+									"              },",
+									"              \"required\": [\"day\", \"year\", \"month\"]",
+									"            },",
+									"            \"channels\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"addresses\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            },",
+									"            \"social\": {",
+									"              \"type\": \"array\",",
+									"              \"items\": { \"type\": \"object\" }",
+									"            }",
+									"          },",
+									"          \"required\": [\"id\", \"first_name\", \"last_name\", \"channels\", \"addresses\"]",
+									"        },",
+									"        \"report\": {",
+									"          \"type\": \"object\",",
+									"          \"properties\": {",
+									"            \"valid\": { \"type\": \"array\" },",
+									"            \"invalid\": { \"type\": \"array\" },",
+									"            \"errors\": { \"type\": \"array\" }",
+									"          },",
+									"          \"required\": [\"valid\", \"invalid\", \"errors\"]",
+									"        }",
+									"      },",
+									"      \"required\": [\"success\", \"version\", \"result\", \"report\"]",
+									"    }",
+									"  },",
+									"  \"required\": [\"response\"]",
+									"};",
+									"",
+									"// Run the schema validation",
+									"pm.test(\"Response matches the schema\", function () {",
+									"    pm.response.to.have.jsonSchema(schema);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"id": "876c9a88-5518-4151-9243-553a5abc83e2",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-CSRFToken",
+								"value": "HaiKyi9x72she6zXg09iYF3ojPFxplgZ",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"first_name\": \"Vrush243##$ti\",\r\n  \"last_name\": \"Vachhani\",\r\n  \"channels\": [\r\n                {\r\n                    \"id\": \"c1480390-dc3a-4126-a1a9-50b9f74b0700\",\r\n                    \"channel_type\": \"Facebook\",\r\n                    \"value\": \"sdfcvdegtfvsd\",\r\n                    \"hint\": null,\r\n                    \"social\": true,\r\n                    \"call\": false,\r\n                    \"sms\": false,\r\n                    \"email\": false,\r\n                    \"default\": false,\r\n                    \"name\": null\r\n                }\r\n            ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://api.cogmento.com/api/1/contacts/",
+							"protocol": "https",
+							"host": [
+								"api",
+								"cogmento",
+								"com"
+							],
+							"path": [
+								"api",
+								"1",
+								"contacts",
+								""
+							]
+						},
+						"description": "### Create a New Contact\n\nThis endpoint allows you to create a new contact in the system.\n\n#### Request Body\n\n- `first_name` (string): The first name of the contact.\n- `last_name` (string): The last name of the contact.\n- `channels` (array): An array of contact channels containing the following parameters:\n    - `id` (string): The ID of the channel.\n    - `channel_type` (string): The type of channel (e.g., Facebook, Twitter, etc.).\n    - `value` (string): The value of the channel (e.g., username, handle, etc.).\n    - `hint` (string): A hint for the channel.\n    - `social` (boolean): Indicates if the channel is a social media channel.\n    - `call` (boolean): Indicates if the channel can be used for calls.\n    - `sms` (boolean): Indicates if the channel can be used for SMS.\n    - `email` (boolean): Indicates if the channel can be used for email.\n    - `default` (boolean): Indicates if the channel is the default channel.\n    - `name` (string): The name of the channel.\n\n#### Response\n\nThe response will contain the details of the newly created contact."
+					},
+					"response": []
+				}
+			],
+			"id": "460d080f-badd-4f70-8436-acde7088f7f4"
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{cogtoken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "fb5eaffe-e7af-4ae4-b381-9270740f3773",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "9367eda4-3c8f-441d-a242-5d3ad7fc659e",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "586eadf2-996b-4788-aa7b-9e1a57fca05a",
+			"key": "cogtoken",
+			"value": ""
+		},
+		{
+			"id": "0be6eb42-6f6c-43b4-bbb0-ca5a0430d430",
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}
